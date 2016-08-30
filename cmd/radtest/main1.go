@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"sync"
 	"time"
+	"runtime"
 
 	"github.com/layeh/radius"
 )
@@ -24,6 +25,9 @@ var timeout *time.Duration
 
 func main() {
 	var wg sync.WaitGroup
+        nCPU := runtime.NumCPU()
+        runtime.GOMAXPROCS(nCPU)
+        fmt.Println("Number of CPUs: ", nCPU)
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "usage: %s [flags] <user> <password> <radius-server>[:port] <nas-port-number> <secret> <loopno>\n", ARG0)
 		flag.PrintDefaults()
